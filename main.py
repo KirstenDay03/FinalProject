@@ -58,3 +58,32 @@ async def get_recipe_by_id(id: int):
 
 	return recipe.to_dict(orient='records')[0]
 
+@app.post("/recipe")
+async def add_recipe(recipe: Recipe):
+	global df
+	
+	if recipe.id in df['id'].values:
+		raise HTTPException(status_code=400, detail="Recipe already exists")
+
+	new_recipe_df = pd.DataFrame([recipe.model_dump()])
+
+	df = pd.concat([df, new_recipe_df], ignore_index=True)
+
+	df.to_csv('Recipe.csv', index=False)
+
+	return recipe
+
+@app.put("/recipe/{id}")
+async def update_recipe(id: int, recipe: Recipe):
+	global df
+
+	if id not in df['id'].values:
+		raise HTTPException(status_code=404, detail="Recipe not found")
+
+	df.loc[df['id'] == id, ['name','cuisine','prepTime','cookTime','ingredient1','ingredient2','ingredient3','ingredient4','ingredient5','instruction1','instruction2','instruction3','instruction4','instruction5']] = [recipe.name, recipe.cuisine, recipe.prepTime, recipe.cookTime, recipe.ingredient1, recipe.ingredient2,recipe.ingredient3, recipe.ingredient4, recipe.ingredient5, recipe.instruction1, recipe.instruction2, recipe.instruction3, recipe.instruction4, recipe.instruction5]
+
+	# Save the dataframe to a csv file
+	df.to_csv('Recipe.csv', index=False)
+
+	return recipe
+
