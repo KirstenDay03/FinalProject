@@ -270,3 +270,16 @@ async def update_recipe_name(id: int, instruction5: str):
 
 	return instruction5
 
+@app.delete("/recipe/{id}")
+async def delete_recipe(id: int):
+	global df
+
+	if id not in df['id'].values:
+		raise HTTPException(status_code=404, detail="Pokemon not found")
+
+	df = df[df['id'] != id]
+
+	df.to_csv('Recipe.csv', index=False)
+
+	return { 'message': 'Recipe deleted' }
+
