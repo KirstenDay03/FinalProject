@@ -1,0 +1,93 @@
+﻿@page "/add"
+@using FinalProject.Data
+@using FinalProject.Services
+@inject APIService APIService
+
+<PageTitle>Add a Recipe</PageTitle>
+
+
+<h5>Add a Recipe</h5>
+Enter Name:<input @bind=nameToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Cuisine:<input @bind=cuisineToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Prep Time:<input @bind=prepTimeToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Cook Time:<input @bind=cookTimeToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Ingredient 1:<input @bind=ingredient1ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Ingredient 2:<input @bind=ingredient2ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Ingredient 3:<input @bind=ingredient3ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Ingredient 4:<input @bind=ingredient4ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Ingredient 5:<input @bind=ingredient5ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Instruction 1:<input @bind=instruction1ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Instruction 2:<input @bind=instruction2ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Instruction 3:<input @bind=instruction3ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Instruction 4:<input @bind=instruction4ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+Enter Instruction 5:<input @bind=instruction5ToAdd style="margin-left: 10px; margin-bottom: 5px;"/><br />
+
+<button @onclick=AddRecipe>Add Recipe</button> <br />
+<p role="status">@response</p> <br/>
+
+@code
+{
+    string response = "";
+
+    int id = 0;
+    string nameToAdd = "";
+    string cuisineToAdd = "";
+    string prepTimeToAdd = "";
+    string cookTimeToAdd = "";
+    string ingredient1ToAdd = "";
+    string ingredient2ToAdd = "";
+    string ingredient3ToAdd = "";
+    string ingredient4ToAdd = "";
+    string ingredient5ToAdd = "";
+    string instruction1ToAdd = "";
+    string instruction2ToAdd = "";
+    string instruction3ToAdd = "";
+    string instruction4ToAdd = "";
+    string instruction5ToAdd = "";
+    
+    async Task AddRecipe()
+    {
+        if(nameToAdd == "" || cuisineToAdd == "" || prepTimeToAdd == "" || cookTimeToAdd == "" || ingredient1ToAdd == "")
+        {
+		    response = "First 5 fields must be filled out";
+        }
+
+		if(nameToAdd != "" && cuisineToAdd != "" && prepTimeToAdd != "" && cookTimeToAdd != "" && ingredient1ToAdd != "")
+        {
+            int totalRecipes = await APIService.GetRecipeCount();
+            List<Recipe> r = new List<Recipe>();
+
+		    for (int i = 1; i <= totalRecipes; i++) 
+            {
+			    r.Add(await APIService.GetRecipe(i));
+		    }
+
+            id = r.Any() ? r.Max(b => b.Id) + 1 : 1;
+
+            Recipe newRecipe = new Recipe();
+
+            newRecipe.Id = id;
+            newRecipe.Name = nameToAdd;
+            newRecipe.Cuisine = cuisineToAdd;
+            newRecipe.prepTime = prepTimeToAdd;
+            newRecipe.cookTime = cookTimeToAdd;
+            newRecipe.Ingredient1 = ingredient1ToAdd;
+            newRecipe.Ingredient2 = ingredient2ToAdd;
+            newRecipe.Ingredient3 = ingredient3ToAdd;
+            newRecipe.Ingredient4 = ingredient4ToAdd;
+            newRecipe.Ingredient5 = ingredient5ToAdd;
+            newRecipe.Instruction1 = instruction1ToAdd;
+            newRecipe.Instruction2 = instruction2ToAdd;
+            newRecipe.Instruction3 = instruction3ToAdd;
+            newRecipe.Instruction4 = instruction4ToAdd;
+            newRecipe.Instruction5 = instruction5ToAdd;
+
+            await APIService.PostRecipe(newRecipe);
+
+            response = "Recipe Added";
+        }
+		
+	}
+}
+
+

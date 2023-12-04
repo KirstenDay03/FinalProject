@@ -1,0 +1,283 @@
+﻿@page "/"
+@using FinalProject.Data
+@using FinalProject.Services
+@inject APIService APIService
+
+<PageTitle>Find a Recipe</PageTitle>
+
+
+<h5>Search for Recipe by Name</h5>
+Enter Name of a Recipe:<input @bind=nameToFind style="margin-left: 10px; margin-bottom: 5px;"/><br /><br />
+
+<button @onclick=ListRecipesByName>List Recipes</button> <br />
+<p role="status">@response</p> <br/>
+
+    <table class="table table-striped">
+    <thead>
+    </thead>
+
+    <tbody>
+        @foreach (Recipe rp in n)
+        {
+            <tr>
+                <td style="height: 40px;">ID:</td><td style="height: 40px;">@rp.Id</td>
+                <td style="height: 40px;">Name:</td><td style="height: 40px; padding-left: 10px">@rp.Name</td>
+                <td style="height: 40px; padding-left: 20px">Cuisine:</td><td style="height: 40px; padding-left: 10px">@rp.Cuisine</td>
+                <td style="height: 40px; padding-left: 20px">Prep Time:</td><td style="height: 40px; padding-left: 10px">@rp.prepTime</td>
+                <td style="height: 40px; padding-left: 20px">Cook Time:</td><td style="height: 40px; padding-left: 10px">@rp.cookTime</td>
+            </tr>
+            
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 1:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient1</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 2:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient2</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 3:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient3</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 4:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient4</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 5:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient5</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 1:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction1</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 2:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction2</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 3:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction3</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 4:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction4</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 5:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction5</td>
+            </tr>
+        }
+    </tbody>
+</table> <br/><br/>
+
+
+<h5>Search for Recipe by Cuisine</h5>
+Enter Name a Cuisine:<input @bind=cuisineToFind style="margin-left: 10px; margin-bottom: 5px;"/><br /><br />
+
+
+<button @onclick=ListRecipesByCuisine>List Recipes</button> <br />
+<p role="status">@response2</p> <br/>
+    <table style ="width:100%">
+    <thead>
+    </thead>
+
+    <tbody>
+        @foreach (Recipe rp in c)
+        {
+            <tr>
+                <td style="height: 40px;">ID:</td><td style="height: 40px;">@rp.Id</td>
+                <td style="height: 40px;">Name:</td><td style="height: 40px; padding-left: 10px">@rp.Name</td>
+                <td style="height: 40px; padding-left: 20px">Cuisine:</td><td style="height: 40px; padding-left: 10px">@rp.Cuisine</td>
+                <td style="height: 40px; padding-left: 20px">Prep Time:</td><td style="height: 40px; padding-left: 10px">@rp.prepTime</td>
+                <td style="height: 40px; padding-left: 20px">Cook Time:</td><td style="height: 40px; padding-left: 10px">@rp.cookTime</td>
+            </tr>
+            
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 1:</td>
+                <td style="colspan="2"; height: 40px; padding-left: 10px">@rp.Ingredient1</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 2:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient2</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 3:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient3</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 4:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient4</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 5:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient5</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 1:</td>
+                <td style="colspan="4"; height: 40px; padding-left: 10px">@rp.Instruction1</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 2:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction2</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 3:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction3</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 4:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction4</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 5:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction5</td>
+            </tr>
+        }
+    </tbody>
+</table><br /><br />
+
+
+<h5>All Recipes</h5>
+
+<button @onclick=ListRecipes>List Recipes</button> <br /><br />
+    <table>
+    <thead>
+    </thead>
+
+    <tbody>
+        @foreach (Recipe rp in r)
+        {
+            <tr>
+                <td style="height: 40px;">ID:</td><td style="height: 40px;">@rp.Id</td>
+                <td style="height: 40px;">Name:</td><td style="height: 40px; padding-left: 10px">@rp.Name</td>
+                <td style="height: 40px; padding-left: 20px">Cuisine:</td><td style="height: 40px; padding-left: 10px">@rp.Cuisine</td>
+                <td style="height: 40px; padding-left: 20px">Prep Time:</td><td style="height: 40px; padding-left: 10px">@rp.prepTime</td>
+                <td style="height: 40px; padding-left: 20px">Cook Time:</td><td style="height: 40px; padding-left: 10px">@rp.cookTime</td>
+            </tr>
+            
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 1:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient1</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 2:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient2</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 3:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient3</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 4:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient4</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Ingredient 5:</td>
+                <td style="width: 90px; height: 40px; padding-left: 10px">@rp.Ingredient5</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 1:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction1</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 2:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction2</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 3:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction3</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 4:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction4</td>
+            </tr>
+            <tr>
+                <td style="width: 150px; height: 40px;">Instruction 5:</td>
+                <td style="height: 40px; padding-left: 10px">@rp.Instruction5</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code
+{
+    public List<Recipe> r = new List<Recipe>();
+    public List<Recipe> n = new List<Recipe>();
+    public List<Recipe> c = new List<Recipe>();
+
+	async Task ListRecipes()
+    {
+		
+		int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> initial = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			initial.Add(await APIService.GetRecipe(i));
+		}
+
+        HashSet<Recipe> distinctRecipes = new HashSet<Recipe>(initial);
+
+        r = distinctRecipes.ToList();
+        StateHasChanged();
+		
+	}
+
+
+    string nameToFind = "";
+    string response = "";
+
+    async Task ListRecipesByName()
+    {
+		response = "Recipe not found.";
+		int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> initial = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+            Recipe test = await APIService.GetRecipe(i);
+            if(test.Name == nameToFind)
+            {
+			    initial.Add(test);
+                response = "Recipe Found";
+            }
+		}
+
+        HashSet<Recipe> distinctRecipes = new HashSet<Recipe>(initial);
+
+        n = distinctRecipes.ToList();
+        StateHasChanged();
+		
+	}
+
+
+    string cuisineToFind = "";
+    string response2 = "";
+
+    async Task ListRecipesByCuisine()
+    {
+		
+		response2 = "Recipe not found.";
+		int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> initial = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+            Recipe test = await APIService.GetRecipe(i);
+            if(test.Cuisine == cuisineToFind)
+            {
+			    initial.Add(test);
+                response2 = "Recipe Found";
+            }
+		}
+
+        HashSet<Recipe> distinctRecipes = new HashSet<Recipe>(initial);
+
+        c = distinctRecipes.ToList();
+        StateHasChanged();
+	}
+}
+
+

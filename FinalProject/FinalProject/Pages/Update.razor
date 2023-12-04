@@ -1,0 +1,540 @@
+﻿@page "/update"
+@using FinalProject.Data
+@using FinalProject.Services
+@inject APIService APIService
+
+<PageTitle>Update a Recipe</PageTitle>
+
+
+<h5>Update a Recipe</h5>
+Enter the Id of the recipe to Update:<input @bind=idToUpdate style="margin-left: 10px; margin-bottom: 5px;"/><br />
+
+<select @onchange="HandleSelectionChange">
+    <option value="none">None</option>
+    <option value="changeName">Name</option>
+    <option value="changeCuisine">Cuisine</option>
+    <option value="changePrepTime">Prep Time</option>
+    <option value="changeCookTime">Cook Time</option>
+    <option value="changeIngredient1">Ingredient 1</option>
+    <option value="changeIngredient2">Ingredient 2</option>
+    <option value="changeIngredient3">Ingredient 3</option>
+    <option value="changeIngredient4">Ingredient 4</option>
+    <option value="changeIngredient5">Ingredient 5</option>
+    <option value="changeInstruction1">Instruction 1</option>
+    <option value="changeInstruction2">Instruction 2</option>
+    <option value="changeInstruction3">Instruction 3</option>
+    <option value="changeInstruction4">Instruction 4</option>
+    <option value="changeInstruction5">Instruction 5</option>
+    <option value="changeAll">All</option>
+</select>
+<p role="status">@response</p> <br/>
+
+@if(selectedMethod == "changeName")
+{
+    <p>Enter Name:</p> <input @bind=nameToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeName>Update</button> <br />
+    <p role="status">@responseName</p> <br/>
+}
+else if(selectedMethod == "changeCuisine")
+{
+    <p>Enter Cuisine:</p> <input @bind=cuisineToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeCuisine>Update</button> <br />
+    <p role="status">@responseCuisine</p> <br/>
+}
+else if(selectedMethod == "changePrepTime")
+{
+    <p>Enter Prep Time:</p> <input @bind=prepTimeToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangePrepTime>Update</button> <br />
+    <p role="status">@responsePrepTime</p> <br/>
+}
+else if(selectedMethod == "changeCookTime")
+{
+    <p>Enter Cook Time:</p> <input @bind=cookTimeToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeCookTime>Update</button> <br />
+    <p role="status">@responseCookTime</p> <br/>
+}
+else if(selectedMethod == "changeIngredient1")
+{
+    <p>Enter Ingredient 1:</p> <input @bind=ingredient1ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeIngredient1>Update</button> <br />
+    <p role="status">@responseIngredient1</p> <br/>
+}
+else if(selectedMethod == "changeIngredient2")
+{
+    <p>Enter Ingredient 2:</p> <input @bind=ingredient2ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeIngredient2>Update</button> <br />
+    <p role="status">@responseIngredient2</p> <br/>
+}
+else if(selectedMethod == "changeIngredient3")
+{
+    <p>Enter Ingredient 3:</p> <input @bind=ingredient3ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeIngredient3>Update</button> <br />
+    <p role="status">@responseIngredient3</p> <br/>
+}
+else if(selectedMethod == "changeIngredient4")
+{
+    <p>Enter Ingredient 4:</p> <input @bind=ingredient4ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeIngredient4>Update</button> <br />
+    <p role="status">@responseIngredient4</p> <br/>
+}
+else if(selectedMethod == "changeIngredient5")
+{
+    <p>Enter Ingredient 5:</p> <input @bind=ingredient5ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeIngredient5>Update</button> <br />
+    <p role="status">@responseIngredient5</p> <br/>
+}
+else if(selectedMethod == "changeInstruction1")
+{
+    <p>Enter Instruction 1:</p> <input @bind=instruction1ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeInstruction1>Update</button> <br />
+    <p role="status">@responseInstruction1</p> <br/>
+}
+else if(selectedMethod == "changeInstruction2")
+{
+    <p>Enter Instruction 2:</p> <input @bind=instruction2ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeInstruction2>Update</button> <br />
+    <p role="status">@responseInstruction2</p> <br/>
+}
+else if(selectedMethod == "changeInstruction3")
+{
+    <p>Enter Instruction 3:</p> <input @bind=instruction3ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeInstruction3>Update</button> <br />
+    <p role="status">@responseInstruction3</p> <br/>
+}
+else if(selectedMethod == "changeInstruction4")
+{
+    <p>Enter Instruction 4:</p> <input @bind=instruction4ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeInstruction4>Update</button> <br />
+    <p role="status">@responseInstruction4</p> <br/>
+}
+else if(selectedMethod == "changeInstruction5")
+{
+    <p>Enter Instruction 5:</p> <input @bind=instruction5ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeInstruction5>Update</button> <br />
+    <p role="status">@responseInstruction5</p> <br/>
+}
+else if(selectedMethod == "changeAll")
+{
+    <p>Enter Name:</p> <input @bind=nameToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Cuisine:</p> <input @bind=cuisineToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Prep Time:</p> <input @bind=prepTimeToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Cook Time:</p> <input @bind=cookTimeToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Ingredient 1:</p> <input @bind=ingredient1ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Ingredient 2:</p> <input @bind=ingredient2ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Ingredient 3:</p> <input @bind=ingredient3ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Ingredient 4:</p> <input @bind=ingredient4ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Ingredient 5:</p> <input @bind=ingredient5ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Instruction 1:</p> <input @bind=instruction1ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Instruction 2:</p> <input @bind=instruction2ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Instruction 3:</p> <input @bind=instruction3ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Instruction 4:</p> <input @bind=instruction4ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <p>Enter Instruction 5:</p> <input @bind=instruction5ToUpdate style="margin-left: 10px; margin-bottom: 5px;"/>
+    <button @onclick=ChangeAll>Update</button> <br />
+    <p role="status">@responseAll</p> <br/>
+}
+
+@code
+{
+	int idToUpdate = 0;
+    string response = "";
+    string responseName = "";
+    string responseCuisine = "";
+    string responsePrepTime = "";
+    string responseCookTime = "";
+    string responseIngredient1 = "";
+    string responseIngredient2 = "";
+    string responseIngredient3 = "";
+    string responseIngredient4 = "";
+    string responseIngredient5 = "";
+    string responseInstruction1 = "";
+    string responseInstruction2 = "";
+    string responseInstruction3 = "";
+    string responseInstruction4 = "";
+    string responseInstruction5 = "";
+    string responseAll = "";
+
+    string nameToUpdate = "";
+    string cuisineToUpdate = "";
+    string prepTimeToUpdate = "";
+    string cookTimeToUpdate = "";
+    string ingredient1ToUpdate = "";
+    string ingredient2ToUpdate = "";
+    string ingredient3ToUpdate = "";
+    string ingredient4ToUpdate = "";
+    string ingredient5ToUpdate = "";
+    string instruction1ToUpdate = "";
+    string instruction2ToUpdate = "";
+    string instruction3ToUpdate = "";
+    string instruction4ToUpdate = "";
+    string instruction5ToUpdate = "";
+    
+    string selectedMethod;
+
+    private void HandleSelectionChange(ChangeEventArgs e)
+    {
+        selectedMethod = e.Value.ToString();
+
+    }
+
+    async Task ChangeName()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateName(idToUpdate, nameToUpdate);
+			responseName = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseName = "Recipe not found";
+		}
+    }
+
+    async Task ChangeCuisine()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateCuisine(idToUpdate, cuisineToUpdate);
+			responseCuisine = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseCuisine = "Recipe not found";
+		}
+    }
+
+    async Task ChangePrepTime()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdatePrepTime(idToUpdate, prepTimeToUpdate);
+			responsePrepTime = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responsePrepTime = "Recipe not found";
+		}
+    }
+
+    async Task ChangeCookTime()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateCookTime(idToUpdate, cookTimeToUpdate);
+			responseCookTime = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseCookTime = "Recipe not found";
+		}
+    }
+
+    async Task ChangeIngredient1()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateIngredient1(idToUpdate, ingredient1ToUpdate);
+			responseIngredient1 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseIngredient1 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeIngredient2()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateIngredient2(idToUpdate, ingredient2ToUpdate);
+			responseIngredient2 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseIngredient2 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeIngredient3()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateIngredient3(idToUpdate, ingredient3ToUpdate);
+			responseIngredient3 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseIngredient3 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeIngredient4()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateIngredient4(idToUpdate, ingredient4ToUpdate);
+			responseIngredient4 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseIngredient4 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeIngredient5()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateIngredient5(idToUpdate, ingredient5ToUpdate);
+			responseIngredient5 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseIngredient5 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeInstruction1()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateInstruction1(idToUpdate, instruction1ToUpdate);
+			responseInstruction1 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseInstruction1 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeInstruction2()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateInstruction2(idToUpdate, instruction2ToUpdate);
+			responseInstruction2 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseInstruction2 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeInstruction3()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateInstruction3(idToUpdate, instruction3ToUpdate);
+			responseInstruction3 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseInstruction3 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeInstruction4()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateInstruction4(idToUpdate, instruction4ToUpdate);
+			responseInstruction4 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseInstruction4 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeInstruction5()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+			await APIService.UpdateInstruction5(idToUpdate, instruction5ToUpdate);
+			responseInstruction5 = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseInstruction5 = "Recipe not found";
+		}
+    }
+
+    async Task ChangeAll()
+    {
+        int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToUpdate);
+
+		if (recipe != null) 
+        {
+            recipe.Name = nameToUpdate;
+            recipe.Cuisine = cuisineToUpdate;
+            recipe.prepTime = prepTimeToUpdate;
+            recipe.cookTime = cookTimeToUpdate;
+            recipe.Ingredient1 = ingredient1ToUpdate;
+            recipe.Ingredient2 = ingredient2ToUpdate;
+            recipe.Ingredient3 = ingredient3ToUpdate;
+            recipe.Ingredient4 = ingredient4ToUpdate;
+            recipe.Ingredient5 = ingredient5ToUpdate;
+            recipe.Instruction1 = instruction1ToUpdate;
+            recipe.Instruction2 = instruction2ToUpdate;
+            recipe.Instruction3 = instruction3ToUpdate;
+            recipe.Instruction4 = instruction4ToUpdate;
+            recipe.Instruction5 = instruction5ToUpdate;
+
+			await APIService.PutRecipe(idToUpdate, recipe);
+			responseAll = "Recipe updated successfully!";
+		}
+		else 
+        {
+			responseAll = "Recipe not found";
+		}
+    }
+}
+
+

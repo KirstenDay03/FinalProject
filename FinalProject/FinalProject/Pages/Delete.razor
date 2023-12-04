@@ -1,0 +1,50 @@
+﻿@page "/delete"
+@using FinalProject.Data
+@using FinalProject.Services
+@inject APIService APIService
+
+<PageTitle>Delete a Recipe</PageTitle>
+
+
+<h5>Delete a Recipe</h5>
+Enter the Id of the recipe to delete:<input @bind=idToDelete style="margin-left: 10px; margin-bottom: 5px;"/><br />
+
+<button @onclick=DeleteRecipe>Delete</button> <br />
+<p role="status">@response</p> <br/>
+
+@code
+{
+    string response = "";
+
+    int idToDelete = 0;
+    
+    async Task DeleteRecipe()
+    {
+		int totalRecipes = await APIService.GetRecipeCount();
+        List<Recipe> r = new List<Recipe>();
+
+		for (int i = 1; i <= totalRecipes; i++) 
+        {
+			r.Add(await APIService.GetRecipe(i));
+		}
+
+		Recipe recipe = r.FirstOrDefault(b => b.Id == idToDelete);
+
+		if (recipe != null) 
+        {
+			await APIService.DeleteRecipe(idToDelete);
+			response = "Recipe deleted successfully!";
+		}
+		else 
+        {
+			response = "Recipe not found";
+		}
+        
+
+
+	
+		
+	}
+}
+
+
